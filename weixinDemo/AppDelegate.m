@@ -7,11 +7,15 @@
 //
 
 #import "AppDelegate.h"
-
-#import "ViewController.h"
-
+#import "WXApi.h"
+#import "SendMesgViewController.h"
 @implementation AppDelegate
-
+- (id)init{
+    if(self = [super init]){
+        
+    }
+    return self;
+}
 - (void)dealloc
 {
     [_window release];
@@ -23,12 +27,39 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
+    self.viewController = [[[SendMesgViewController alloc] initWithNibName:@"SendMesgViewController" bundle:nil] autorelease];
+    //self.viewController.delegate = self;
     self.window.rootViewController = self.viewController;
+   
+
+    
     [self.window makeKeyAndVisible];
+    [WXApi registerApp:@"wx2eb0ecb06f71bf8d"];
     return YES;
 }
+//
+//- (void)doAuth
+//{
+//    SendAuthReq* req = [[[SendAuthReq alloc] init] autorelease];
+//    req.scope = @"post_timeline";
+//    req.state = @"xxx";
+//    
+//    [WXApi sendReq:req];
+//}
+//
+//-(void) changeScene:(NSInteger)scene{
+//    _scene = scene;
+//}
+//
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

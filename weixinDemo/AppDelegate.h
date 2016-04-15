@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SendMesgViewController.h"
+#import "WXApi.h"
 
-@class ViewController;
+//@class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate, WXApiDelegate>{
+}
+
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) SendMesgViewController *viewController;
+
 
 @end
